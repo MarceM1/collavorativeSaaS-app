@@ -13,12 +13,11 @@ import Image from "next/image"
 import { updateDocument } from "@/lib/actions/room.actions"
 
 
-const CollaborativeRoom = ({ roomId, roomMetadata }: CollaborativeRoomProps) => {
+const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: CollaborativeRoomProps) => {
 
 	// console.log('roomMetadata: ', roomMetadata)
 	// console.log('roomId: ', roomId)
 
-	const currentUserType = 'editor'
 
 	const [documentTitle, setDocumentTitle] = useState(roomMetadata.title)
 	const [editing, setEditing] = useState(false);
@@ -40,7 +39,7 @@ const CollaborativeRoom = ({ roomId, roomMetadata }: CollaborativeRoomProps) => 
 			}
 		} catch (error) {
 			console.log('error in updateTitleHanlder: ', error)
-		} 
+		}
 
 		setLoading(false)
 	}
@@ -83,7 +82,7 @@ const CollaborativeRoom = ({ roomId, roomMetadata }: CollaborativeRoomProps) => 
 									// onKeyDown={updateTitleHandler}
 									onKeyDown={(e) => {
 										if (e.key === 'Enter') {
-											updateTitleHandler(e); 
+											updateTitleHandler(e);
 										}
 									}}
 									disabled={!editing}
@@ -124,7 +123,7 @@ const CollaborativeRoom = ({ roomId, roomMetadata }: CollaborativeRoomProps) => 
 							</SignedIn>
 						</div>
 					</Header>
-					<Editor />
+					<Editor roomId={roomId} currentUserType={currentUserType} />
 				</div>
 			</ClientSideSuspense>
 		</RoomProvider>

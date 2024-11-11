@@ -19,7 +19,7 @@ export const createDocument = async ({
     };
 
     const usersAccesses: RoomAccesses = {
-      ["email"]: ["room:write"],
+      [email]: ["room:write"],
     };
 
     const room = await liveblocks.createRoom(roomId, {
@@ -48,13 +48,12 @@ export const getDocument = async ({
     // console.log("userId: ", userId);
 
     const room = await liveblocks.getRoom(roomId);
-    // console.log("room: ", room);
-    // const hasAccess = Object.keys(room.usersAccesses).includes(userId);
-    // console.log('hasAccess: ', hasAccess)
-
-    // if (!hasAccess) {
-    //   throw new Error("You do not have access to this document");
-    // }
+     console.log("room: ", room);
+    //  const hasAccess = Object.keys(room.usersAccesses).includes(userId);
+    //  console.log('hasAccess: ', hasAccess)
+    //  if (!hasAccess) {
+    //    throw new Error("You do not have access to this document");
+    //  }
     return parseStringify(room);
   } catch (error) {
     console.log("error in getDocument: ", error);

@@ -25,7 +25,7 @@ export const createDocument = async ({
     const room = await liveblocks.createRoom(roomId, {
       metadata,
       usersAccesses,
-      defaultAccesses: ['room:write'],
+      defaultAccesses: ["room:write"],
     });
     revalidatePath("/");
 
@@ -42,18 +42,15 @@ export const getDocument = async ({
   roomId: string;
   userId: string;
 }) => {
-  
-  
   try {
-    console.log('Iniciando tryblock')
-    console.log('roomId: ', roomId)
-    console.log('userId: ', userId)
+    // console.log("Iniciando tryblock");
+    // console.log("roomId: ", roomId);
+    // console.log("userId: ", userId);
 
     const room = await liveblocks.getRoom(roomId);
-    console.log('room: ', room)
+    // console.log("room: ", room);
     // const hasAccess = Object.keys(room.usersAccesses).includes(userId);
     // console.log('hasAccess: ', hasAccess)
-
 
     // if (!hasAccess) {
     //   throw new Error("You do not have access to this document");
@@ -63,3 +60,17 @@ export const getDocument = async ({
     console.log("error in getDocument: ", error);
   }
 };
+
+export const updateDocument = async (roomId: string, title: string)=>{
+  try {
+    const updatedRoom = await liveblocks.updateRoom(roomId,{
+      metadata:{
+        title
+      }
+    })
+    revalidatePath(`/documents/${roomId}`)
+    return parseStringify(updatedRoom)
+  } catch (error) {
+    console.log('error in updateDocument: ', error)
+  }
+}

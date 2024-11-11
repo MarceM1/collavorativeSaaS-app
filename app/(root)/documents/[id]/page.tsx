@@ -15,6 +15,8 @@ const Document = async ({ params: { id } }: SearchParamProps) => {
     userId: clerkUser.emailAddresses[0].emailAddress
   })
 
+  // console.log('room.metadata in Document', room.metadata)
+
   if(!room) redirect('/')
 
     // TODO: assess the permissions of the user to access the document
@@ -23,7 +25,7 @@ const Document = async ({ params: { id } }: SearchParamProps) => {
     <div className='flex w-full flex-col items-center'>
       <CollaborativeRoom 
         roomId={id}
-        roomMetadata ={room.roomMetadata}
+        roomMetadata ={room.metadata}
       />
     </div>
   )

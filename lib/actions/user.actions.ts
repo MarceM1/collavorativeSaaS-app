@@ -8,7 +8,7 @@ export const getClerkUser = async ({ userIds }: { userIds: string[] }) => {
     const { data } = await clerkClient.users.getUserList({
       emailAddress: userIds,
     });
-    console.log('data in getClerckUser', data)
+    // console.log('data in getClerckUser', data)
     const users = data.map((user) => ({
       id: user.id,
       name: `${user.firstName} ${user.lastName}`,

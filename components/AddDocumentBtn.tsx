@@ -14,7 +14,7 @@ const AddDocumentBtn = ({ userId, email }: AddDocumentBtnProps) => {
 		if(room) router.push(`/documents/${room.id}`)
 
 		} catch (error) {
-			console.log('Error in addDocumentHandler: ', error)
+			 console.log('Error in addDocumentHandler: ', error)
 		}
 	}
 

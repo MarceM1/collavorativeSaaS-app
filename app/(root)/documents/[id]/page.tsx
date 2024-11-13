@@ -15,20 +15,20 @@ const Document = async ({ params: { id } }: SearchParamProps) => {
     roomId: id,
     userId: clerkUser.emailAddresses[0].emailAddress
   })
-  console.log('room en Document: ', room)
-  console.log('EmailAddress', clerkUser.emailAddresses[0].emailAddress)
+  // console.log('room en Document: ', room)
+  // console.log('EmailAddress', clerkUser.emailAddresses[0].emailAddress)
   // console.log('room.metadata in Document', room.metadata)
 
   if (!room) redirect('/')
 
   const userIds = Object.keys(room.usersAccesses)
   
-  console.log('room.usersAccesses en Document: ', room.usersAccesses)
-  console.log('userIds en Document: ', userIds)
+  // console.log('room.usersAccesses en Document: ', room.usersAccesses)
+  // console.log('userIds en Document: ', userIds)
   
   const users = await getClerkUser({ userIds })
 
-  console.log('users en document: ', users)
+  // console.log('users en document: ', users)
   const usersData = users?.map((user: User) => ({
     ...user,
     userType: room.usersAccesses[users.email]?.includes('room:write')
@@ -36,7 +36,7 @@ const Document = async ({ params: { id } }: SearchParamProps) => {
     : 'viewer'
   }))
   const currentUserType = room.usersAccesses[clerkUser.emailAddresses[0].emailAddress]?.includes('room:write') ? 'editor' : 'viewer'
-  console.log('currentUserType: ', currentUserType)
+  // console.log('currentUserType: ', currentUserType)
   return (
     <div className='flex w-full flex-col items-center'>
       <CollaborativeRoom

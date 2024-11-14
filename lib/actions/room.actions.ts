@@ -4,6 +4,8 @@ import { nanoid } from "nanoid";
 import { liveblocks } from "../liveblocks";
 import { revalidatePath } from "next/cache";
 import { getAccessType, parseStringify } from "../utils";
+import { redirect } from "next/navigation";
+import { metadata } from "@/app/layout";
 
 export const createDocument = async ({
   userId,
@@ -56,7 +58,7 @@ export const getDocument = async ({
       }
     return parseStringify(room);
   } catch (error) {
-    // console.log("error in getDocument: ", error);
+     console.log("error in getDocument: ", error);
   }
 };
 
@@ -80,21 +82,14 @@ export const getDocuments = async (email: string) => {
      console.log("Iniciando tryblock in getDocuments");
      console.log(" email in getDocuments: ", email);
 
-
-    const rooms = await liveblocks.getRooms({metadata:{email:email}});
+    
+    const roomsA = await liveblocks.getRooms({userId:email});
+    
+    const rooms = parseStringify(roomsA)
+    console.log('roomsA', roomsA)
     
     console.log('rooms', rooms)
-    // console.log("room: ", room);
-    // const hasAccess = Object.keys(room.usersAccesses).includes(userId);
-    // console.log('hasAccess: ', hasAccess)
-
-    // if (!hasAccess) {
-    //   throw new Error("You do not have access to this document");
-    // }
-    // console.log('rooms: ',rooms)
-    // console.log('parseStringifyrooms: ', parseStringify(rooms))
-
-    return parseStringify(rooms);
+    return rooms;
   } catch (error) {
     console.log("error in getDocuments: ", error);
   }
@@ -142,5 +137,15 @@ export const removeCollaborator = async ({roomId, email}: {roomId:string, email:
     return parseStringify(updateRoom)
   } catch (error) {
     console.log('error in removeCollaborator: ', error)
+  }
+}
+
+export const deleteDocument = async (roomId: string) => {
+  try {
+    await liveblocks.deleteRoom(roomId);
+    revalidatePath('/')
+    redirect('/')
+  } catch (error) {
+    console.log('error in deleteRoom: ', error)
   }
 }

@@ -73,6 +73,7 @@ export default function ToolbarPlugin() {
       }),
       editor.registerCommand(
         SELECTION_CHANGE_COMMAND,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         (_payload, _newEditor) => {
           $updateToolbar();
           return false;

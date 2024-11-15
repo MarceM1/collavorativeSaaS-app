@@ -27,7 +27,7 @@ const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: Col
 
 	const containerRef = useRef<HTMLDivElement>(null)
 	const inputRef = useRef<HTMLDivElement>(null)
-
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const updateTitleHandler = async (e: React.KeyboardEvent<HTMLInputElement>) => {
 		setLoading(true)
 

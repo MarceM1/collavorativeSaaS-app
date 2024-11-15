@@ -55,6 +55,7 @@ export const Notifications = () => {
             )}
 
             {unreadNotifications.length > 0 &&
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               unreadNotifications.map((inboxNotification: any) => (
                 <InboxNotification
                   key={inboxNotification.id}

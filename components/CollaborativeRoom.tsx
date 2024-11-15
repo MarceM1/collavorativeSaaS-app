@@ -12,6 +12,7 @@ import { Input } from "./ui/input"
 import Image from "next/image"
 import { updateDocument } from "@/lib/actions/room.actions"
 import ShareModal from "./ShareModal"
+import { Notifications } from "./Notifications"
 
 
 const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: CollaborativeRoomProps) => {
@@ -122,6 +123,7 @@ const CollaborativeRoom = ({ roomId, roomMetadata, users, currentUserType }: Col
 								creatorId={roomMetadata.creatorId}
 								currentUserType={currentUserType}
 							/>
+							<Notifications />
 							<SignedOut>
 								<SignInButton />
 							</SignedOut>

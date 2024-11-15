@@ -5,7 +5,6 @@ import { liveblocks } from "../liveblocks";
 import { revalidatePath } from "next/cache";
 import { getAccessType, parseStringify } from "../utils";
 import { redirect } from "next/navigation";
-import { metadata } from "@/app/layout";
 
 export const createDocument = async ({
   userId,
@@ -112,7 +111,22 @@ export const updateDocumentAccess = async ({roomId, email, userType, updatedBy}:
 
 
     if(room){
-      //TODO: send a notification to the user
+      const notificationId = nanoid();
+
+      await liveblocks.triggerInboxNotification({
+        userId: email,
+        kind:'$documentAccess',
+        subjectId: notificationId,
+        activityData:{
+          userType,
+          title:`You have been granted ${userType} access to the document by ${updatedBy.name}`,
+          updatedBy: updatedBy.name,
+          avatar: updatedBy.avatar,
+          email: updatedBy.email
+        },
+        roomId
+      })
+
     }
     revalidatePath(`/documents/${roomId}`)
     return parseStringify(room)
